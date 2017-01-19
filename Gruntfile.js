@@ -3,6 +3,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        separator: '',
+      },
+      client: {
+        src: ['public/client/*'],
+        dest: 'public/dist/client.js'
+      },
+      lib: {
+        src: ['public/lib/*'],
+        dest: 'public/dist/lib.js'
+      }
     },
 
     mochaTest: {
@@ -21,6 +32,16 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      myTarget: {
+        files: {
+          'public/dist/client.min.js': ['public/dist/client.js'],
+          'public/dist/lib.min.js': ['public/dist/lib.js']
+        }
+      }
+    },
+
+    clean: {
+      js: ['public/dist/*.js', '!public/dist/*.min.js'],
     },
 
     eslint: {
@@ -30,6 +51,11 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
+      target: {
+        files: {
+          'public/dist/style.min.css': ['public/style.css']
+        }
+      }
     },
 
     watch: {
@@ -55,6 +81,7 @@ module.exports = function(grunt) {
     },
   });
 
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
