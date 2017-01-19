@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       underscore: {
         src: ['public/lib/underscore.js'],
         dest: 'public/dist/underscore.js'
-      }
+      },
 
     },
 
@@ -62,9 +62,10 @@ module.exports = function(grunt) {
     },
 
     eslint: {
-      target: [
-        // Add list of files to lint here
-      ]
+      options: {
+        quiet: true
+      },
+      target: ['public/dist/*.js']
     },
 
     cssmin: {
@@ -94,6 +95,12 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+      },
+      commit: {
+        command: 'git commit . -m "send to live server"'
+      },
+      push: {
+        command: 'git push live master'
       }
     },
   });
@@ -120,20 +127,25 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
+  grunt.registerTask('build', function() {
+    grunt.task.run(['concat', 'eslint', 'test', 'uglify', 'clean', 'cssmin']);
+  });
+
+
+  grunt.registerTask('deploy', function() {
+    grunt.task.run(['build', 'server-dev']);
+    // add your deploy tasks here
+  });
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
+      grunt.task.run(['build']);
+      // push to production droplet
+
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run([ 'deploy' ]);
     }
   });
-
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-  ]);
-
 
 };
