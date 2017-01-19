@@ -132,20 +132,20 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('deploy', function() {
-    grunt.task.run(['build', 'server-dev']);
-    // add your deploy tasks here
-  });
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
-      grunt.task.run(['build']);
+      grunt.task.run(['build', 'shell:commit', 'shell:push']);
       // push to production droplet
 
     } else {
-      grunt.task.run([ 'deploy' ]);
+      grunt.task.run([ 'server-dev' ]);
     }
   });
 
+  grunt.registerTask('deploy', function() {
+    // add your deploy tasks here
+    grunt.task.run(['upload']);
+  });
 };
