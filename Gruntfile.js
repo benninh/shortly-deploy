@@ -138,9 +138,9 @@ module.exports = function(grunt) {
       // add your production server task here
       grunt.task.run(['build', 'shell:commit', 'shell:push']);
       // push to production droplet
-
+      // FIX FATAL THING WITH PUSH TO DROPLET
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run([ 'build', 'server-dev' ]);
     }
   });
 
