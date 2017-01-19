@@ -10,10 +10,23 @@ module.exports = function(grunt) {
         src: ['public/client/*'],
         dest: 'public/dist/client.js'
       },
-      lib: {
-        src: ['public/lib/*'],
-        dest: 'public/dist/lib.js'
+      backbone: {
+        src: ['public/lib/backbone.js'],
+        dest: 'public/dist/backbone.js'
+      },
+      handlebars: {
+        src: ['public/lib/handlebars.js'],
+        dest: 'public/dist/handlebars.js'
+      },
+      jquery: {
+        src: ['public/lib/jquery.js'],
+        dest: 'public/dist/jquery.js'
+      },
+      underscore: {
+        src: ['public/lib/underscore.js'],
+        dest: 'public/dist/underscore.js'
       }
+
     },
 
     mochaTest: {
@@ -35,7 +48,11 @@ module.exports = function(grunt) {
       myTarget: {
         files: {
           'public/dist/client.min.js': ['public/dist/client.js'],
-          'public/dist/lib.min.js': ['public/dist/lib.js']
+          'public/dist/lib.min.js': ['public/dist/lib.js'],
+          'public/dist/backbone.min.js': ['public/dist/backbone.js'],
+          'public/dist/handlebars.min.js': ['public/dist/handlebars.js'],
+          'public/dist/jquery.min.js': ['public/dist/jquery.js'],
+          'public/dist/underscore.min.js': ['public/dist/underscore.js']
         }
       }
     },
